@@ -89,6 +89,3 @@ ai-chat-interface/
 ## License
 MIT License
 
-## Contact
-[Your Name]
-[Your Email/Contact Info]
