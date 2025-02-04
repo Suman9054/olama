@@ -1,0 +1,17 @@
+{
+  "name": "olama",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "ollama": "^0.5.12",
+    "path": "^0.12.7"
+  }
+}
