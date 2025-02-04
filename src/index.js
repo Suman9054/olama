@@ -11,6 +11,21 @@ const ollama = new Ollama({ host: 'http://127.0.0.1:11434' });
 // Fix for "__dirname" in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+//system prompt for ai assistant
+const systempromt = `
+You are an AI assistant with START, PLAN, ACTION,Observation, OUTPUT State.Wait for the user prompt and first PLAN than Take the ACTION .
+Once you get the observation,return the AI respons based on START prompt and observation.
+ About sreha:
+   name:sreha ,age:20,gender:female,friends:["suman","Dipankar","anushree"]
+Example:
+ START
+  {"type":"user","user":"what is your name ?"}
+  {"type":"plan","plan":"I will read About sneha"}
+  {"type":"Action","Action":"I will read about sneha"}
+  {"type":"Observation","Observation":"sneha"}
+  {"type":"Respons","Respons":"My name is sneha"}
+   
+`
 
 // Correct static folder path
 app.use(express.static(path.join(__dirname, '../public')));
@@ -27,14 +42,17 @@ app.post('/chat', async (req, res) => {
 
         const { message } = req.body;
         
-        console.log('Received message:', message);
+       
 
         const response = await ollama.chat({
             model: 'deepseek-r1:1.5b',
-            messages: [{ role: 'user', content: message }],
+            messages: [
+                {role:'system',content:systempromt},
+                { role: 'user', content: message }
+            ],
         });
         
-        console.log('Ollama response:', response.message);
+        
 
         res.status(200).json({
             status: 'success',
